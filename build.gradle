@@ -9,32 +9,38 @@ base {
     archivesName = project.archives_base_name
 }
 
-def supportedVersions = [
-        '1.21': [
-                minecraft_version: '1.21',
-                yarn_mappings: '1.21+build.9',
-                fabric_version: '0.100.7+1.21',
-                loader_version: '0.16.7'
+def supportedVersionRanges = [
+        '1.20-1.20.4': [
+                minecraft_version: '1.20.4',
+                yarn_mappings: '1.20.4+build.3',
+                fabric_version: '0.97.3+1.20.4',
+                loader_version: '0.16.14',
+                minecraft_version_range: '>=1.20 <1.20.5',
+                java_version: 17
         ],
-        '1.21.1': [
-                minecraft_version: '1.21.1',
-                yarn_mappings: '1.21.1+build.3',
-                fabric_version: '0.102.0+1.21.1',
-                loader_version: '0.16.7'
+        '1.20.5-1.20.6': [
+                minecraft_version: '1.20.6',
+                yarn_mappings: '1.20.6+build.3',
+                fabric_version: '0.100.8+1.20.6',
+                loader_version: '0.16.14',
+                minecraft_version_range: '>=1.20.5 <1.21',
+                java_version: 17
         ],
-        '1.21.4': [
-                minecraft_version: '1.21.4',
-                yarn_mappings: '1.21.4+build.8',
-                fabric_version: '0.119.3+1.21.4',
-                loader_version: '0.16.7'
+        '1.21.x': [
+                minecraft_version: '1.21.6',
+                yarn_mappings: '1.21.6+build.1',
+                fabric_version: '0.127.1+1.21.6',
+                loader_version: '0.16.14',
+                minecraft_version_range: '>=1.21 <1.22',
+                java_version: 21
         ]
 ]
 
-def targetVersion = project.hasProperty('minecraft_version') ? project.minecraft_version : '1.21.4'
-def versionConfig = supportedVersions[targetVersion]
+def targetVersionRange = project.hasProperty('minecraft_version_range') ? project.minecraft_version_range : '1.21.x'
+def versionConfig = supportedVersionRanges[targetVersionRange]
 
 if (!versionConfig) {
-    throw new GradleException("Unsupported Minecraft version: ${targetVersion}. Supported versions: ${supportedVersions.keySet()}")
+    throw new GradleException("Unsupported Minecraft version range: ${targetVersionRange}. Supported ranges: ${supportedVersionRanges.keySet()}")
 }
 
 dependencies {
@@ -46,29 +52,30 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "minecraft_version", versionConfig.minecraft_version
+    inputs.property "minecraft_version_range", versionConfig.minecraft_version_range
     inputs.property "loader_version", versionConfig.loader_version
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
-                "minecraft_version": versionConfig.minecraft_version,
+                "minecraft_version_range": versionConfig.minecraft_version_range,
                 "loader_version": versionConfig.loader_version
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = versionConfig.java_version
+
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        it.options.release.set(targetJavaVersion)
+        it.options.release.set(targetJavaVersion as Integer)
     }
 }
 
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion as String)
     }
     withSourcesJar()
 }
@@ -80,13 +87,13 @@ jar {
 }
 
 remapJar {
-    archiveFileName = "${project.archives_base_name}-${project.mod_version}-${versionConfig.minecraft_version}.jar"
+    archiveFileName = "${project.archives_base_name}-${project.mod_version}-mc${targetVersionRange}.jar"
 }
 
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name + "-${targetVersion}"
+            artifactId = project.archives_base_name + "-${targetVersionRange}"
             from components.java
         }
     }
