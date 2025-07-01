@@ -1,4 +1,4 @@
-# RandomBreak
+# [RandomBreak](https://modrinth.com/project/ndpMbtrJ)
 
 **RandomBreak** transforms your Minecraft experience into a wild, unpredictable adventure! Every block you break drops a *completely random item* — mine a dirt block and get a diamond, a cake, or even a dragon egg! **Yes, you can still beat the game!**
 
