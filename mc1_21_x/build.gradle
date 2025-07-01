@@ -13,7 +13,7 @@ sourceSets {
     }
 }
 
-def version_suffix = '1.21_x'
+def version_suffix = '1.21.x'
 
 dependencies {
     minecraft "com.mojang:minecraft:1.21"
