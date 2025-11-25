@@ -6,15 +6,7 @@
 
 - **Randomness**: Break any block (stone, dirt, ore) and get a random item from Minecraft's vast item pool.
 - **Vanilla-Friendly**: Seamlessly works with vanilla Minecraft and most other mods.
-- **Lightweight & Simple**: No heavy setup required.
 - **Server-Side**: Only the server (or the player hosting the world) needs the mod installed—perfect for multiplayer chaos!
-
-## Installation
-
-1. Download the latest version of **RandomBreak**.
-2. Install **Fabric** and **[Fabric API](https://modrinth.com/project/P7dR8mSH)** (depending on your version).
-3. Drop the mod `.jar` file into your `mods` folder.
-4. Launch Minecraft!
 
 ## Why Play RandomBreak?
 
