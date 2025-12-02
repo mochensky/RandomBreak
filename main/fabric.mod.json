@@ -5,8 +5,8 @@
   "name": "RandomBreak",
   "description": "Any block mined in the game will drop a completely random item!",
   "authors": ["mochensky"],
-  "contact": { "homepage": "https://github.com/mochensky" },
-  "license": "All-Rights-Reserved",
+  "contact": { "homepage": "https://github.com/mochensky", "issues": "https://github.com/mochensky/RandomBreak/issues" },
+  "license": "CC-BY-NC-SA-4.0",
   "icon": "assets/randombreak/icon.png",
   "environment": "*",
   "entrypoints": {
