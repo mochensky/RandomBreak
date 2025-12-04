@@ -15,9 +15,3 @@ This mod is perfect for players who crave a fresh, unpredictable challenge. Whet
 ## Try This Too!
 
 Love a tough challenge? Check out **[NoMoreDrop](https://modrinth.com/project/Om99IHQH)**, a mod that removes *all* item drops from blocks, forcing you to rethink every step of your survival journey!
-
-## Compatibility
-
-- Works with Minecraft `1.17–1.21.x`!
-- Compatible with most Fabric mods.
-- No client-side installation needed for multiplayer servers.
