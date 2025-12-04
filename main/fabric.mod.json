@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "randombreak",
   "version": "${version}",
-  "name": "RandomBreak",
+  "name": "Random Break",
   "description": "Any block mined in the game will drop a completely random item!",
   "authors": ["mochensky"],
   "contact": { "homepage": "https://github.com/mochensky", "issues": "https://github.com/mochensky/RandomBreak/issues", "sources": "https://github.com/mochensky/RandomBreak" },
