@@ -9,6 +9,7 @@ pluginManagement {
 }
 
 rootProject.name = 'randombreak'
+include 'mc1_16_5'
 include 'mc1_17_x'
 include 'mc1_18_x'
 include 'mc1_19-1_19_2'
@@ -16,3 +17,4 @@ include 'mc1_19_3-1_19_4'
 include 'mc1_20-1_20_4'
 include 'mc1_20_5-1_20_6'
 include 'mc1_21_x'
+include 'mc26_1_x'
