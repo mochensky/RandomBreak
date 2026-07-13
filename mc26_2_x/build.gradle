@@ -1,0 +1,59 @@
+plugins {
+    id 'net.fabricmc.fabric-loom'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+        }
+        resources {
+            srcDirs 'src/main/resources', '../main'
+        }
+    }
+}
+
+def version_suffix = '26.2.x'
+
+dependencies {
+    minecraft "com.mojang:minecraft:26.2"
+
+    implementation "net.fabricmc:fabric-loader:0.19.2"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.154.2+26.2"
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'loader_version', '0.19.2'
+    inputs.property 'minecraft_version_range', '>=26.2 <26.3'
+
+    filteringCharset 'UTF-8'
+
+    filesMatching('fabric.mod.json') {
+        expand(
+                version: project.version,
+                loader_version: '0.19.2',
+                minecraft_version_range: '>=26.2 <26.3'
+        )
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release.set(25)
+}
+
+tasks.named('sourcesJar') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+jar {
+    archiveVersion = "${project.version}-mc${version_suffix}"
+    destinationDirectory = file("${project.rootDir}/build/libs")
+}
+
+sourcesJar {
+    archiveVersion = "${project.version}-mc${version_suffix}"
+    destinationDirectory = file("${project.rootDir}/build/libs")
+}
